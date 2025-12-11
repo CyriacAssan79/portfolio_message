@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_message/api/APIService.dart';
 import 'package:portfolio_message/model/messageModel.dart';
-import 'package:portfolio_message/pages/read_message.dart';
+import 'package:portfolio_message/view/pages/read_message.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final data = await ApiServices().callAPI();
       setState(() {
-        message = data;
+        message = data.reversed.toList();
         isLoading = false;
       });
     } catch (e) {
@@ -40,9 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue.shade800,
         title: Text(widget.title, style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
@@ -60,9 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       // Récupère l'élément supprimé
                       MessageModel removedMessage = message[index];
                       // Affiche-le dans la console
-                      print(
-                        "Message supprimé : ${removedMessage.name}",
-                      );
+                      print("Message supprimé : ${removedMessage.name}");
                       delMessage(removedMessage.id);
                       // Supprime-le de la liste pour mettre à jour l'UI
                       setState(() {

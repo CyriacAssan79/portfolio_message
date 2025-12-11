@@ -1,4 +1,4 @@
-package com.example.portfolio_message
+package com.cyrus.portfoliomessage
 
 import io.flutter.embedding.android.FlutterActivity
 

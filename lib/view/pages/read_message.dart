@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_message/model/messageModel.dart';
+import 'package:portfolio_message/services/notification_service.dart';
 
 class ReadMessage extends StatefulWidget {
   const ReadMessage({super.key, required this.message});
@@ -54,11 +55,18 @@ class _ReadMessageState extends State<ReadMessage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
+        child: SizedBox(
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(widget.message.message)],
+            children: [
+              Text(widget.message.message),
+              SizedBox(height: 10),
+
+            ],
           ),
         ),
       ),

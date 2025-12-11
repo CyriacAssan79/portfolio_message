@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1006017796784",
+    "project_id": "portfolio-message-4f3be",
+    "storage_bucket": "portfolio-message-4f3be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006017796784:android:88a943f616903a880cb975",
+        "android_client_info": {
+          "package_name": "com.cyrus.portfoliomessage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9OiZzI_5zpkI4xCF_oJun1sDIxkoh2dQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006017796784:android:bf00ccb457eb5d990cb975",
+        "android_client_info": {
+          "package_name": "com.example.portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9OiZzI_5zpkI4xCF_oJun1sDIxkoh2dQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
