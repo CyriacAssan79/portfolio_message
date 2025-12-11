@@ -5,7 +5,7 @@ import 'package:portfolio_message/api/notification_manager.dart';
 import 'package:portfolio_message/services/notification_service.dart';
 import 'package:portfolio_message/view/pages/home.dart';
 
-import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
