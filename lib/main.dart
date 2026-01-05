@@ -6,14 +6,22 @@ import 'package:portfolio_message/services/notification_service.dart';
 import 'package:portfolio_message/view/pages/home.dart';
 
 import 'firebase_options.dart';
+// Handler background (obligatoire)
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print("Message en arrière-plan : ${message.notification?.title}");
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   String? token = await messaging.getToken();
   print("FCM Token: $token");
+
+  // 2. Notification en arrière plan
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   //Notification manuelle de firebase à mon app (test)
   //Dans le fichier notification_service.dart

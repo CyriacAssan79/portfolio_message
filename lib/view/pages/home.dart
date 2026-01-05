@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_message/api/APIService.dart';
 import 'package:portfolio_message/model/messageModel.dart';
 import 'package:portfolio_message/view/pages/read_message.dart';
+import 'package:portfolio_message/view/widget/drawer_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,6 +16,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<MessageModel> message = [];
   bool isLoading = false;
+
 
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         backgroundColor: Colors.blue.shade800,
         title: Text(widget.title, style: TextStyle(color: Colors.white)),
