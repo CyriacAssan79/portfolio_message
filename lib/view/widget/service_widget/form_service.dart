@@ -7,12 +7,14 @@ class FormService extends StatelessWidget {
     required this.title_controller,
     required this.description_controller,
     required this.icon_controller,
+    required this.savedService,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController title_controller;
   final TextEditingController description_controller;
   final TextEditingController icon_controller;
+  final Function savedService;
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +84,7 @@ class FormService extends StatelessWidget {
               ),
             ),
             onPressed: (){
-              if (formKey.currentState!.validate()) {
-                print("Titre : ${title_controller.text}");
-                print("Description : ${description_controller.text}");
-
-                title_controller.clear();
-                description_controller.clear();
-                icon_controller.clear();
-              }
+              savedService();
             },
             child: Text("Enregistrer"),
           )

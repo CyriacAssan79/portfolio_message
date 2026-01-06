@@ -18,7 +18,7 @@ class ServiceList extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
-            services.desciption,
+            services.description,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.grey.shade700),

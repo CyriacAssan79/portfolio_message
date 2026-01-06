@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_message/api/socialAPI.dart';
+import '../../model/social_model.dart';
+import '../../utils.dart';
 
 class Contacts extends StatefulWidget {
   const Contacts({super.key});
@@ -11,27 +14,47 @@ class _ContactsState extends State<Contacts> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController whattsapp_controller;
   late TextEditingController email_controller;
-  late TextEditingController facebook_controller;
   late TextEditingController linkedin_controller;
   late TextEditingController github_controller;
   late TextEditingController tel_controller;
+  List<SocialModal> social = [];
+  bool isLoading = false;
 
   @override
   void initState() {
     whattsapp_controller = TextEditingController();
     email_controller = TextEditingController();
-    facebook_controller = TextEditingController();
     linkedin_controller = TextEditingController();
     github_controller = TextEditingController();
     tel_controller = TextEditingController();
     super.initState();
+    callApi();
+  }
+
+  callApi() async {
+    try {
+      final data = await SocialAPI().callAPI();
+      setState(() {
+        social = data.reversed.toList();
+        whattsapp_controller.text = social[0].wha;
+        email_controller.text = social[0].email;
+        linkedin_controller.text = social[0].lk;
+        github_controller.text = social[0].github;
+        tel_controller.text = social[0].tel;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur API : $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
   void dispose() {
     whattsapp_controller.dispose();
     email_controller.dispose();
-    facebook_controller.dispose();
     linkedin_controller.dispose();
     github_controller.dispose();
     tel_controller.dispose();
@@ -86,7 +109,6 @@ class _ContactsState extends State<Contacts> {
                               height: 5,
                             ),
                           ),
-
                         ),
                       ),
                       SizedBox(height: 10),
@@ -111,28 +133,7 @@ class _ContactsState extends State<Contacts> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: facebook_controller,
-                        decoration: InputDecoration(
-                          labelText: "Lien facebook",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.blue.shade800,
-                              width: 2,
-                            ),
-                          ),
-                          prefixIcon: Container(
-                            padding: EdgeInsets.all(6),
-                            child: Image.asset(
-                              "assets/facebook.png",
-                              width: 5,
-                              height: 5,
-                            ),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(height: 10),
                       TextFormField(
                         controller: linkedin_controller,
@@ -144,7 +145,6 @@ class _ContactsState extends State<Contacts> {
                               color: Colors.blue.shade800,
                               width: 2,
                             ),
-
                           ),
                           prefixIcon: Container(
                             padding: EdgeInsets.all(6),
@@ -210,7 +210,7 @@ class _ContactsState extends State<Contacts> {
                           ),
                         ),
                         child: Text("Enregistrer"),
-                        onPressed: () {},
+                        onPressed: savedContact,
                       ),
                     ],
                   ),
@@ -221,5 +221,35 @@ class _ContactsState extends State<Contacts> {
         ),
       ),
     );
+  }
+
+  void savedContact() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        SocialAPI()
+            .updatedSocial(
+              social[0].id,
+              whattsapp_controller.text,
+              email_controller.text,
+              linkedin_controller.text,
+              github_controller.text,
+              tel_controller.text,
+            )
+            .then((value) async {
+              await callApi();
+              AppSnackBar.show(
+                context,
+                message: "Mise à jour effectuée avec succès!",
+                type: SnackType.success,
+              );
+        });
+      } catch (e) {
+        AppSnackBar.show(
+          context,
+          message: "Erreur lors de la mise à jour des données!",
+          type: SnackType.error,
+        );
+      }
+    }
   }
 }

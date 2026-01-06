@@ -5,20 +5,23 @@ class ServiceData {
     ServiceModel(
       id: "1",
       title: "Développement Web",
-      desciption:
+      description:
           "Création de sites vitrines et d’applications web modernes, rapides et sécurisées.",
+      icon: "",
     ),
     ServiceModel(
       id: "2",
       title: "Applications Mobiles",
-      desciption:
+      description:
           "Conception d’applications mobiles performantes et intuitives pour Android et iOS.",
+      icon: "",
     ),
     ServiceModel(
       id: "3",
       title: "Logiciels sur mesure",
-      desciption:
+      description:
           "Développement de solutions logicielles personnalisées adaptées à vos besoins métiers.",
+      icon: "",
     ),
   ];
 }

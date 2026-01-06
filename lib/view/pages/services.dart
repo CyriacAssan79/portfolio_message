@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_message/data/service_data.dart';
+import 'package:portfolio_message/api/serviceAPI.dart';
 import 'package:portfolio_message/model/service_model.dart';
 import 'package:portfolio_message/view/widget/service_widget/form_service.dart';
 import 'package:portfolio_message/view/widget/service_widget/service_list.dart';
+
+import '../../utils.dart';
 
 class Services extends StatefulWidget {
   const Services({super.key});
@@ -16,7 +18,9 @@ class _ServicesState extends State<Services> {
   late TextEditingController title_controller;
   late TextEditingController description_controller;
   late TextEditingController icon_controller;
-  List<ServiceModel> services_list = ServiceData().service;
+  List<ServiceModel> services_list = [];
+  bool isLoading = false;
+
 
   @override
   void initState() {
@@ -24,8 +28,26 @@ class _ServicesState extends State<Services> {
     description_controller = TextEditingController();
     icon_controller = TextEditingController();
     super.initState();
+    callApi();
   }
 
+  callApi() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final data = await ServiceAPI().callAPI();
+      setState(() {
+        services_list = data.reversed.toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur API : $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
   @override
   void dispose() {
     title_controller.dispose();
@@ -67,6 +89,7 @@ class _ServicesState extends State<Services> {
                   title_controller: title_controller,
                   description_controller: description_controller,
                   icon_controller: icon_controller,
+                  savedService: savedService,
                 ),
                 SizedBox(height: 10),
                 Divider(),
@@ -76,10 +99,8 @@ class _ServicesState extends State<Services> {
                   style: TextStyle(fontSize: 20),
                 ),
                 SizedBox(height: 10),
-                ServiceList(
-                  services_list: services_list,
-                  delete: delete,
-                ),
+                isLoading ? Center(child: CircularProgressIndicator()) :
+                ServiceList(services_list: services_list, delete: delete),
               ],
             ),
           ),
@@ -89,8 +110,55 @@ class _ServicesState extends State<Services> {
   }
 
   void delete(ServiceModel service) {
-    setState(() {
-      services_list.remove(service);
-    });
+    try {
+      ServiceAPI()
+          .delService(service.id
+      )
+          .then((value) async {
+        await callApi();
+        AppSnackBar.show(
+          context,
+          message: "Service supprimée avec succès!",
+          type: SnackType.success,
+        );
+      });
+    } catch (e) {
+      AppSnackBar.show(
+        context,
+        message: "Erreur lors de la suppression du service!",
+        type: SnackType.error,
+      );
+    }
+  }
+
+  void savedService() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        ServiceAPI()
+            .savedService(
+              title_controller.text,
+              description_controller.text,
+              icon_controller.text,
+            )
+            .then((value) async {
+              await callApi();
+              AppSnackBar.show(
+                context,
+                message: "Service enregistrée avec succès!",
+                type: SnackType.success,
+              );
+
+              title_controller.clear();
+              description_controller.clear();
+              icon_controller.clear();
+            });
+      } catch (e) {
+        AppSnackBar.show(
+          context,
+          message: "Erreur lors de l'enregistrement du service!",
+          type: SnackType.error,
+        );
+      }
+    }
   }
 }

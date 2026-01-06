@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_message/api/competenceAPI.dart';
-import 'package:portfolio_message/data/competence_data.dart';
 import 'package:portfolio_message/view/widget/competence_widget/competence_form.dart';
 
 import '../../model/competence_model.dart';
