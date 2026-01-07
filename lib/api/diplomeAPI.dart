@@ -54,7 +54,6 @@ class DiplomeAPI {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id": id}),
     );
-    print("object");
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
       return result;

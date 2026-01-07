@@ -63,7 +63,6 @@ class _CompetencesState extends State<Competences> {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.only(left: 10, right: 10, top: 15),
           child: SingleChildScrollView(

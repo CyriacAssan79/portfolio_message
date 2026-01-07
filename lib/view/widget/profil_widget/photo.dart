@@ -69,6 +69,7 @@ class _PhotoState extends State<Photo> with SingleTickerProviderStateMixin {
       child: Container(
         height: 130,
         width: 130,
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,

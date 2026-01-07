@@ -72,7 +72,6 @@ class _ServicesState extends State<Services> {
           FocusScope.of(context).unfocus();
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),

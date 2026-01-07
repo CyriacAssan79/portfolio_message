@@ -76,7 +76,6 @@ class _ContactsState extends State<Contacts> {
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

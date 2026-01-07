@@ -83,12 +83,13 @@ class _CertificationsState extends State<Certifications> {
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Ajouter une certification ou un diplôme",
+                  "Ajouter ${widget.type == "Certifications"? "une certification" : "un diplôme"}",
                   style: TextStyle(fontSize: 20),
                 ),
                 SizedBox(height: 5),

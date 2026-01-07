@@ -25,7 +25,6 @@ class _ProfilState extends State<Profil> {
           FocusScope.of(context).unfocus();
         },
         child: Container(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: SingleChildScrollView(
